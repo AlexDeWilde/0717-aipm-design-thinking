@@ -1,0 +1,7 @@
+The challenge — What product or service situation are you investigating? Please describe it as a person, a goal, and a context (not a feature idea). E.g. "a first-time volunteer trying to choose a suitable task" rather than "an onboarding flow.",
+Access to evidence — Who or what can you actually observe or draw from? Real users you can interview, existing support tickets/analytics, desk research, or will you need labelled proxies/simulated participants for this workshop?,
+Scope check — Is there one actor, one goal, and roughly one journey here? Or does the idea currently span multiple user types, multiple goals, or multiple services/products bundled together?,
+Sensitive data — Does exploring this challenge require any personal or sensitive data, or can it be investigated with anonymised/aggregated notes?,
+Originality — Is this challenge different from anything the other groups are likely to pick (if you know what they're working on)?,
+
+Answer in as much or as little detail as you have — open questions are fine, I'll fold them into the plan as explicit unknowns rather than filling gaps with assumptions. Once I have your answers I'll come back with a short discovery plan, expected artifacts, and open questions for your approval — I won't touch the filesystem before that.
