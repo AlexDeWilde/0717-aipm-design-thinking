@@ -43,24 +43,34 @@ interpretation — interpretation happens later in Synthesis.
 - No organisation-specific runbook or severity-level documentation is
   attached yet — the persona's decision criteria will be derived from
   patterns across E1–E4 rather than one company's internal process.
+- The group's original Phase-1 framing answers (actor/goal/scope/
+  evidence-access/originality) for this specific challenge were not saved
+  verbatim to a file — only summarized secondhand in
+  `ai-collaboration-log.md`. The Challenge Statement above reflects that
+  summary; the original answers themselves cannot be independently
+  re-checked from a file. Accepted as a known gap rather than
+  reconstructed after the fact.
 
-## Persona (DRAFT — pending group approval)
+## Persona (approved)
 
 **Composite on-call engineer.** Not a real individual — built from patterns
 observed across E1-E4. Traits below are cited to the evidence entries that
 support them; anything not cited is an assumption, flagged as such.
 
 - Carries a pager/alert for infrastructure or cloud-layer services and must
-  make the first urgency call, often without full context yet (E1, E2, E4) —
+  make the first urgency call, often without full context yet (E2, E4) —
   *assumption:* the paging mechanism itself is inferred from on-call
-  convention, not stated in any single evidence entry.
+  convention, not stated in any single evidence entry. (E1 is cited
+  elsewhere below for a related but distinct pattern — the causal action
+  that preceded an incident — not for an observed on-call triage moment,
+  so it is not grouped into this claim.)
 - May be acting on an established playbook or runbook, but the playbook does
   not guarantee a correct outcome (E1).
-- Decision quality can degrade under time pressure, e.g. when working late
-  (E3) — *assumption:* the evidence entry does not state whether the
-  engineer was working alone or with others; "acting alone" should not be
-  treated as confirmed. This also generalises beyond the one cited incident
-  and is not yet confirmed against other cases.
+- Decision quality can degrade under time pressure (E3) — *assumption:* the
+  evidence entry does not state the time of day, or whether the engineer
+  was working alone or with others; neither "working late" nor "acting
+  alone" should be treated as confirmed. This also generalises beyond the
+  one cited incident and is not yet confirmed against other cases.
 - Fastest correct triage in the cited incidents came from checking recent
   deploys/changes early (E2, E4); when that context was not surfaced
   quickly, minor issues escalated into major ones (E1, E2).
@@ -69,7 +79,7 @@ support them; anything not cited is an assumption, flagged as such.
 alert (one that turns out to be nothing) — all 4 sources are confirmed real
 incidents, not near-misses. Flagged in the Evidence Log gaps above.
 
-## Journey Map (DRAFT — pending group approval)
+## Journey Map (approved)
 
 **Actor:** composite on-call engineer. **Goal:** correctly judge urgency and
 act within the first few minutes of an infra/cloud alert. **Scenario:** an
@@ -96,15 +106,15 @@ claimed here.
 recent-change context automatically alongside the alert; making a
 staging-vs-production distinction more salient at the decision point.
 
-## Point of View (POV) — DRAFT, pending approval
+## Point of View (POV) — approved
 
 > The on-call engineer needs a fast, reliable way to see whether an alert is
-> linked to a recent change before deciding urgency, because in every
-> incident reviewed, the fastest correct triage came from cross-referencing
-> recent deploys (E2, E4) — and the costliest error came from deciding under
-> time pressure with incomplete context (E3).
+> linked to a recent change before deciding urgency, because in the incidents
+> where that context was available, the fastest correct triage came from
+> cross-referencing recent deploys (E2, E4) — and the costliest error came
+> from deciding under time pressure with incomplete context (E3).
 
-## How Might We (HMW) — DRAFT, pending approval
+## How Might We (HMW) — approved
 
 > How might we help an on-call engineer confirm, within the first minute,
 > whether an alert is linked to a recent change — when they are working

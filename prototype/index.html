@@ -34,6 +34,7 @@
 
   <!-- Screen 2: Auto-surfaced recent changes + query -->
   <section id="screen-changes" class="screen" aria-labelledby="changes-heading">
+    <button class="btn btn-secondary btn-back" id="btn-back-to-alert">&larr; Back</button>
     <h1 id="changes-heading">Recent changes — <span id="changes-service"></span></h1>
     <p class="section-hint">Surfaced automatically for the affected service.</p>
 
@@ -54,6 +55,7 @@
 
   <!-- Screen 3: Structured checklist -->
   <section id="screen-checklist" class="screen" aria-labelledby="checklist-heading">
+    <button class="btn btn-secondary btn-back" id="btn-back-to-changes">&larr; Back</button>
     <h1 id="checklist-heading">Triage checklist</h1>
     <p class="section-hint">Answer based on what you've seen so far.</p>
 
@@ -63,6 +65,7 @@
         <div class="choice-group">
           <label><input type="radio" name="q1" value="yes" required> Yes, timing lines up closely</label>
           <label><input type="radio" name="q1" value="no"> No, or not closely enough</label>
+          <label><input type="radio" name="q1" value="uncertain"> Uncertain / not enough info</label>
         </div>
       </fieldset>
 
@@ -71,6 +74,7 @@
         <div class="choice-group">
           <label><input type="radio" name="q2" value="yes" required> Yes</label>
           <label><input type="radio" name="q2" value="no"> No</label>
+          <label><input type="radio" name="q2" value="uncertain"> Uncertain / not enough info</label>
         </div>
       </fieldset>
 
@@ -79,6 +83,7 @@
         <div class="choice-group">
           <label><input type="radio" name="q3" value="many" required> Many users</label>
           <label><input type="radio" name="q3" value="few"> Small subset</label>
+          <label><input type="radio" name="q3" value="uncertain"> Uncertain / not enough info</label>
         </div>
       </fieldset>
 
@@ -88,16 +93,16 @@
 
   <!-- Screen 4: Decision -->
   <section id="screen-decision" class="screen" aria-labelledby="decision-heading">
+    <button class="btn btn-secondary btn-back" id="btn-back-to-checklist">&larr; Back</button>
     <h1 id="decision-heading">Decide and act</h1>
     <p class="section-hint">Signals from what you've gathered:</p>
     <p id="suggestion" class="suggestion"></p>
-    <p id="confidence" class="confidence"></p>
 
     <p class="section-hint">Based on this, what do you do?</p>
     <div class="decision-actions">
-      <button class="btn btn-choice" data-action="escalate">Escalate now</button>
-      <button class="btn btn-choice" data-action="owner">Escalate to service owner</button>
-      <button class="btn btn-choice" data-action="monitor">Monitor / snooze</button>
+      <button class="btn btn-choice" data-action="escalate">Escalate now (act now)</button>
+      <button class="btn btn-choice" data-action="owner">Escalate to service owner (can wait, but flag)</button>
+      <button class="btn btn-choice" data-action="monitor">Monitor / snooze (can wait)</button>
     </div>
   </section>
 
@@ -105,6 +110,7 @@
   <section id="screen-confirm" class="screen" aria-labelledby="confirm-heading">
     <h1 id="confirm-heading">Recorded</h1>
     <p id="confirm-text"></p>
+    <p id="confirm-confidence" class="confidence"></p>
     <p class="confirm-time">Time from alert to decision: <strong id="confirm-elapsed"></strong></p>
     <button class="btn btn-primary" id="btn-next-alert">Next alert</button>
     <button class="btn btn-secondary" id="btn-restart">Restart prototype</button>

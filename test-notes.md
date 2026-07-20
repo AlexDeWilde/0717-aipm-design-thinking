@@ -128,5 +128,99 @@ as built).
 - Did the "no related change" and "ambiguous" scenarios take longer or
   produce less confident decisions than the clear-match scenario?
 
+---
 
+# Round 3 Plan (after iteration: signal-strength moved off decision screen,
+relabelled buttons, back navigation, reworded query fallback, "uncertain"
+checklist option, `:has()` fallback)
+
+## Learning Question (unchanged)
+
+Can a participant, using this prototype, correctly identify whether a
+sample alert is linked to a recent change and reach a defensible urgency
+decision (act now / can wait) within about 2 minutes — across three
+deliberately varied alerts (clear match, no related change, and an
+ambiguous/false-alarm case)?
+
+## What Round 3 Must Capture (the gap Round 2 left open)
+
+For each participant, per alert scenario, actually record:
+
+- Which action they chose (escalate now / escalate to owner / monitor) —
+  the confirmation screen's decisionLabels text, not the facilitator's
+  guess.
+- Time to decide, from the confirmation screen's on-screen timer.
+- Where they hesitated, backtracked (used "Back"), or re-read a screen.
+- What they said, word-for-word where possible, kept separate from
+  interpretation.
+- Whether they used the "Back" button, and on which screen.
+- Whether they used the "Uncertain / not enough info" checklist option,
+  and on which question.
+
+## Task Given to Participants (unchanged, neutral)
+
+> Imagine you're on-call and just received this alert. Show me what you'd
+> do next, using this page.
+
+## Participants
+
+| # | Who (role, real or labelled proxy) | Relevant because |
+|---|---|---|
+|   |   |   |
+
+## Observations (fill in per participant, per scenario — raw observation only)
+
+### Participant 1 — Alert 1 / 2 / 3
+
+Reported: checklist buttons appeared already highlighted/selected on a
+later alert, matching the selections made on a previous alert — described
+as confusing.
+
+*Not captured: which action they chose per scenario, time to decide,
+hesitation, or verbatim reactions beyond the above.*
+
+### Participant 2 — Alert 1 / 2 / 3
+
+Reported: didn't see recommendation guidance after filling out the
+checklist. Separately, asked for the interface to be more colorful /
+visually appealing.
+
+*Not captured: which action they chose per scenario, time to decide,
+hesitation, or verbatim reactions beyond the above.*
+
+## What We Actually Have vs. What We Still Don't (same honest split as Round 2)
+
+**What we have:** two pieces of usable functional/UX feedback (a real
+rendering bug, and a request for stronger post-checklist guidance), plus
+an aesthetic request. Both participants went through the prototype.
+
+**What we still don't have** — the core learning-question data this round
+was designed to capture:
+- Which action either participant chose, per scenario.
+- Time to decide, per scenario.
+- Hesitation, backtracking (Back button usage), or Uncertain-option usage.
+- Verbatim reactions beyond the two feedback points logged above.
+
+**Decision (group confirmed):** treat Round 3 the same honest way as
+Round 2 — useful functional/UX feedback captured and actioned, but the
+core learning question (can a participant independently reach a
+defensible urgency decision within ~2 minutes) is still not answered by
+observed behavior. A future round would need to capture the "What Round 3
+Must Capture" list above to close that gap.
+
+## Context and Limits of This Round
+
+- Same two colleague-proxies as Round 2 (not confirmed real on-call
+  engineers).
+- Feedback was given as free-text requests/bug reports rather than
+  facilitator-recorded behavioral observation, so it can't be broken down
+  per scenario or timed.
+
+## Questions This Round Did Not Answer
+
+- Did either participant reach a defensible urgency decision on their own,
+  or mainly report on the interface itself?
+- Did the "no related change" and "ambiguous" scenarios take longer or
+  produce less confident decisions than the clear-match scenario?
+- (Unchanged from Round 2 — still open.)
 

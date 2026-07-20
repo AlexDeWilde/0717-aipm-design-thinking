@@ -66,6 +66,22 @@ No Python environment is required for this repository.
 6. Keep a clear separation between direct evidence, interpretation, and open
    questions in every deliverable.
 
+## Completed Example: On-Call Alert Triage
+
+This repository's `discovery.md`, `decision-log.md`, `test-notes.md`,
+`ai-collaboration-log.md`, and `prototype/` hold one full worked example of
+the method above — a Design Thinking cycle for on-call infra/cloud alert
+triage. Two presentations cover it:
+
+- **Full walkthrough** (detailed, one scrolling page — evidence, persona,
+  ideation, prototype, three test rounds, and the audits):
+  <https://claude.ai/code/artifact/a79e2ec6-87f9-4260-b950-ba73032aff44>
+- **Simple slide deck** (11 short slides, for a live demo):
+  <https://claude.ai/code/artifact/94f63601-aefa-4d53-be43-c55c5108aace>
+
+Both are private by default — share each from its own page's share menu
+before sending the link to anyone else.
+
 ## AI Collaboration Guidelines
 
 Claude Code can structure notes, challenge a problem statement, produce

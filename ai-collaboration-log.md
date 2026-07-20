@@ -33,6 +33,62 @@ progresses, not only at the end.
 | Round-2 test report: "tested by two colleagues, went through all alert scenarios, could see the changes we asked for" | Yes | — | — | Recorded exactly this in `test-notes.md` — confirms the rebuilt features render/function as designed. |
 | Attempt to log round-2 as full behavioral test evidence (decision choice, timing, hesitation, quotes) | — | — | Rejected | The group had not actually captured this detail. Rather than inflate the report, `test-notes.md` explicitly marks it as "functional verification only, decision-making not observed," and the group confirmed (option 2) to proceed to the final audit on that honest basis rather than fabricate or guess at missing observations. |
 | Project closed at current state after final audit | Yes | — | — | Group confirmed they are happy with the current solution and are not running further test rounds. Accepted with the known limitation on record: round-2 testing verified the prototype's features function correctly but did not observe independent decision-making (choice, timing, hesitation) — logged in `test-notes.md` and the Final Audit as the recommended next learning step if the project resumes. |
+| Post-closure: ran prototype-reviewer (as a live demo of the fallback invocation method) against the current, rebuilt 3-scenario prototype, which had never been reviewed in its rebuilt form | Yes | — | — | Logged as an open note below, not acted on — the group had already closed the project and chose to leave these for a possible future round rather than reopen work now. |
+| Project reopened for one more iteration, acting on the open note's 5 findings + 1 minor item | Yes | — | — | Group chose to reopen and approved implementing all 6, plus a round-3 test plan to close the still-open gap (decision-making not yet observed). Findings are the reviewer's critique, not user evidence — treated as a design-risk checklist per the Skill's rule against presenting subagent findings as user evidence, not as confirmed requirements. |
+| Reviewer finding: "Signal strength" indicator sat immediately before the decision buttons, risking participants following the score instead of judging independently | Yes | — | — | Moved the signal-strength readout off the decision screen entirely — it now renders on the confirmation screen, after the participant has already chosen an action. |
+| Reviewer finding: decision buttons ("escalate now" / "escalate to owner" / "monitor") didn't map cleanly onto the learning question's own "act now / can wait" wording | Yes | — | — | Relabelled each button with its (act now / can wait) mapping made explicit: "Escalate now (act now)", "Escalate to service owner (can wait, but flag)", "Monitor / snooze (can wait)". |
+| Reviewer finding: no way to revisit an earlier screen once past it | Yes | — | — | Added a "Back" button on the changes, checklist, and decision screens; existing state (query history, checklist answers) is preserved since nothing resets on navigation alone. |
+| Reviewer finding: query box's fallback message ("no matching info") could be misread as "no issue exists" | Yes | — | — | Reworded to "I don't have information on that for this alert. That doesn't mean there's nothing to find — try asking about..." |
+| Reviewer finding: the deliberately ambiguous third scenario still forced a plain yes/no checklist answer | Yes | — | — | Added an "Uncertain / not enough info" option to all three checklist questions; updated the neutral summary wording and signal-strength scoring to handle it. |
+| Reviewer finding (minor): button-style checklist's focus/selected styling depended on CSS `:has()` support | Yes | — | — | Added a JS `change`-listener fallback that toggles an `.is-selected` class, so selection is visible even without `:has()` support. |
+| Re-ran evidence-auditor (native subagent) fresh against `discovery.md`, re-checking prior fixes rather than assuming they still held | Yes | — | — | No changes needed to the three previously-fixed items (playbook, "acting alone", pager assumption); auditor surfaced 3 new findings + 1 informational gap, logged below. |
+| Auditor finding: POV's "in every incident reviewed" overclaimed coverage — the cited pattern (fastest triage via recent deploys) is only backed by E2/E4, not all 4 entries | Yes | — | — | Reworded to "in the incidents where that context was available" so the POV's evidentiary basis matches its citations (`discovery.md`). |
+| Auditor finding: persona's "e.g. when working late (E3)" stated an unconfirmed time-of-day detail as evidenced, while the journey map already flagged the same detail as an inferred assumption elsewhere | Yes | — | — | Removed "working late" as a stated fact; the persona's assumption tag now explicitly covers both "time of day" and "acting alone" as unconfirmed, matching the journey map's existing labelling. |
+| Auditor finding: persona cited E1 alongside E2/E4 for "must make the first urgency call," but E1's protagonist caused the incident rather than triaged an alert's urgency | Yes | — | — | Narrowed that citation to E2, E4, with a note clarifying E1 is used elsewhere in the persona for a distinct pattern (the causal action preceding an incident), not this claim. |
+| Auditor finding (informational): the original Phase-1 framing answers for this challenge were never saved to a file, only summarized secondhand | Yes | — | — | Not reconstructed after the fact (would risk inventing evidence) — logged as an accepted, explicit gap in `discovery.md`'s Open Questions section instead. |
+| Confirm discovery.md's Persona, Journey Map, POV, and HMW as final | Yes | — | — | Group explicitly approved. These had been carried under "DRAFT — pending group approval" headings since first synthesis even though the group had already acted on them (ideation, prototyping, testing) and `decision-log.md` already treated the HMW as approved — the DRAFT labels were stale, not a sign of unresolved content. Headings in `discovery.md` updated to "(approved)". |
+| Project status: reopen and run Round 3 (the test plan added to `test-notes.md`, capturing decision/timing/hesitation — the gap Round 2 left open) | Yes | — | — | Group chose to run the test rather than close at the current state. Served the updated prototype locally (`python3 -m http.server` in `prototype/`) so participants can go through it; raw observations to be recorded into `test-notes.md`'s Round 3 section once the session happens. |
+| Round-3 test feedback: checklist button stays visually highlighted into the next alert scenario (Participant 1) | Yes | — | — | Confirmed as a real bug — `form.reset()` doesn't fire `change` events, so the `.is-selected` fallback class from the `:has()` fix wasn't being cleared between scenarios. Fixed by explicitly clearing `.is-selected` in `loadScenario()`. |
+| Round-3 test feedback: no recommendation guidance shown after the checklist (Participant 2) | — | — | Rejected (for now) | Reopens the anchoring-risk tradeoff already navigated twice (Round 1's neutral "Signal strength" compromise; this iteration's move of that indicator to post-decision). Group chose to keep the current design and treat this as one data point rather than reverse the fix — logged, not acted on. |
+| Round-3 test feedback: interface should be more colorful / visually appealing (Participant 2) | Yes | — | — | Group approved a visual style pass. Added color accents (accent teal + accent purple), a gradient topbar/background, colored left-border accents on cards and the recent-changes list, and a gradient primary button — while deliberately leaving the three decision buttons (`.btn-choice`) unstyled/neutral, since their sameness is the earlier anti-bias fix and wasn't in scope to change. |
+| Attempt to log Round 3 as full behavioral test evidence (decision choice, timing, hesitation, quotes) | — | — | Rejected | Same as Round 2 — the group had not actually captured this detail; testers gave free-text feedback/bug reports instead. `test-notes.md` explicitly marks the core learning question as still unanswered by observed behavior, rather than inflating this round's evidence. |
+| Produce a Final Audit (files changed, evidence used/missing, assumptions, subagent findings accepted/rejected, prototype changes from observation, remaining risks, recommended next step) | Yes | — | — | Group confirmed the audit as delivered in chat. |
+| Project closed at current state, for a second time, after this Final Audit | Yes | — | — | Group confirmed. Accepted with the same known limitation on record as the first closure: across all 3 test rounds, no round has captured actual decision choice, timing, or hesitation per participant per scenario — the core learning question (can a participant independently reach a defensible urgency decision within ~2 minutes) remains unanswered by observed behavior. The Final Audit's recommended next step — one test round whose only job is capturing that data, using the plan already in `test-notes.md` — stands as the resumption point if this project is picked up again. |
+| Serve the prototype locally for a colleague demo | Yes | — | — | Group requested the prototype stay live; ran `python3 -m http.server 8933` in `prototype/`, bound to localhost only. |
+| Create a walkthrough presentation covering the complete project, for the same demo | Yes | — | — | Built as a self-contained Artifact (case-file-styled, single scrolling page) summarizing the challenge, evidence log, persona/journey/POV/HMW, ideation, prototype, all 3 test rounds, both audits, and the final audit/status — sourced only from the project's own files, nothing invented. |
+| Add the presentation link to the repo | Yes | — | — | Added to `README.md` under a new "Completed Example" section, with a note that the artifact is private by default and needs to be shared from its page before sending to anyone outside this conversation. |
+| Create a simpler slide-deck version of the presentation, for the demo | Yes | — | — | Built as a second Artifact: an 11-slide deck (click/arrow-key navigation), one idea per slide, condensed from the same source files — no new claims beyond what's in `discovery.md`, `decision-log.md`, `test-notes.md`, and `ai-collaboration-log.md`. Linked from `README.md` alongside the full walkthrough. |
+
+## Resolved Note: Findings on the Rebuilt Prototype (Actioned)
+
+Raised after project closure, during a demonstration of invoking the
+prototype-reviewer without the native subagent mechanism, against the
+current 3-scenario, query-history, signal-strength version. The group
+reopened the project and approved implementing all 6 items (see the log
+rows above for what changed and why); each item is design critique that
+was implemented as a proposed fix, not user evidence.
+
+1. ~~The "Signal strength" indicator sits immediately before the decision
+   buttons~~ — moved to the confirmation screen, after the decision.
+2. ~~The 3 decision buttons don't map cleanly onto "act now / can wait"~~ —
+   button labels now state the mapping explicitly.
+3. ~~No way to revisit an earlier screen~~ — back navigation added.
+4. ~~The query box's fallback message could be misread as "no issue
+   exists"~~ — reworded.
+5. ~~The ambiguous third scenario still forces a plain yes/no checklist
+   answer~~ — an "uncertain" option was added to all checklist questions.
+
+Minor (resolved): the button-style checklist's focus/selected styling now
+has a JS fallback for browsers without CSS `:has()` support.
+
+**Still open, and not resolved by this iteration:** round-2 testing
+verified the prototype's features function correctly but did not observe
+independent decision-making (choice, timing, hesitation) against the
+actual learning question. This iteration changed the prototype in
+response to design critique, not new user evidence — a round-3 test that
+actually records decision, timing, and hesitation per participant (see
+`test-notes.md`) is still needed before treating the learning question as
+answered.
 
 ## Note on subagent execution in this session
 
