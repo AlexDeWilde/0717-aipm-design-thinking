@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>On-Call Triage Prototype</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <span class="topbar-title">On-Call Console (prototype)</span>
+  <span class="scenario-indicator" id="scenario-indicator" aria-live="polite">Alert 1 of 3</span>
+  <span class="timer" id="timer" aria-live="polite">00:00</span>
+</header>
+
+<main>
+
+  <!-- Screen 1: Alert -->
+  <section id="screen-alert" class="screen active" aria-labelledby="alert-heading">
+    <div class="alert-card">
+      <p class="alert-severity">ALERT — just fired</p>
+      <h1 id="alert-heading"><span id="alert-title"></span></h1>
+      <dl class="alert-meta">
+        <div><dt>Service</dt><dd id="alert-service"></dd></div>
+        <div><dt>Signal</dt><dd id="alert-signal"></dd></div>
+        <div><dt>Region</dt><dd id="alert-region"></dd></div>
+        <div><dt>Fired</dt><dd id="alert-fired"></dd></div>
+      </dl>
+      <p class="alert-hint">You are on-call. This alert just fired.</p>
+      <button class="btn btn-primary" id="btn-open-changes">Open triage panel</button>
+    </div>
+  </section>
+
+  <!-- Screen 2: Auto-surfaced recent changes + query -->
+  <section id="screen-changes" class="screen" aria-labelledby="changes-heading">
+    <h1 id="changes-heading">Recent changes — <span id="changes-service"></span></h1>
+    <p class="section-hint">Surfaced automatically for the affected service.</p>
+
+    <ul class="change-list" id="change-list"></ul>
+
+    <div class="query-box">
+      <label for="query-input">Ask for more detail</label>
+      <div class="query-row">
+        <input type="text" id="query-input" placeholder="e.g. any similar past incidents?">
+        <button class="btn btn-secondary" id="btn-ask">Ask</button>
+      </div>
+      <p class="query-hint">Try asking about: recent changes, similar past incidents, or who to escalate to.</p>
+      <div id="query-log" class="query-log" aria-live="polite"></div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-open-checklist">Continue to checklist</button>
+  </section>
+
+  <!-- Screen 3: Structured checklist -->
+  <section id="screen-checklist" class="screen" aria-labelledby="checklist-heading">
+    <h1 id="checklist-heading">Triage checklist</h1>
+    <p class="section-hint">Answer based on what you've seen so far.</p>
+
+    <form id="checklist-form">
+      <fieldset>
+        <legend>Does the timing of any recent change line up closely with when the alert fired?</legend>
+        <div class="choice-group">
+          <label><input type="radio" name="q1" value="yes" required> Yes, timing lines up closely</label>
+          <label><input type="radio" name="q1" value="no"> No, or not closely enough</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Have you seen a similar incident before?</legend>
+        <div class="choice-group">
+          <label><input type="radio" name="q2" value="yes" required> Yes</label>
+          <label><input type="radio" name="q2" value="no"> No</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Does this affect many users, or a small subset?</legend>
+        <div class="choice-group">
+          <label><input type="radio" name="q3" value="many" required> Many users</label>
+          <label><input type="radio" name="q3" value="few"> Small subset</label>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary">See signal summary</button>
+    </form>
+  </section>
+
+  <!-- Screen 4: Decision -->
+  <section id="screen-decision" class="screen" aria-labelledby="decision-heading">
+    <h1 id="decision-heading">Decide and act</h1>
+    <p class="section-hint">Signals from what you've gathered:</p>
+    <p id="suggestion" class="suggestion"></p>
+    <p id="confidence" class="confidence"></p>
+
+    <p class="section-hint">Based on this, what do you do?</p>
+    <div class="decision-actions">
+      <button class="btn btn-choice" data-action="escalate">Escalate now</button>
+      <button class="btn btn-choice" data-action="owner">Escalate to service owner</button>
+      <button class="btn btn-choice" data-action="monitor">Monitor / snooze</button>
+    </div>
+  </section>
+
+  <!-- Screen 5: Confirmation -->
+  <section id="screen-confirm" class="screen" aria-labelledby="confirm-heading">
+    <h1 id="confirm-heading">Recorded</h1>
+    <p id="confirm-text"></p>
+    <p class="confirm-time">Time from alert to decision: <strong id="confirm-elapsed"></strong></p>
+    <button class="btn btn-primary" id="btn-next-alert">Next alert</button>
+    <button class="btn btn-secondary" id="btn-restart">Restart prototype</button>
+  </section>
+
+  <!-- Screen 6: All scenarios complete -->
+  <section id="screen-summary" class="screen" aria-labelledby="summary-heading">
+    <h1 id="summary-heading">All alerts complete</h1>
+    <p class="section-hint">For the facilitator — copy these into test-notes.md.</p>
+    <table class="summary-table">
+      <thead><tr><th>Alert</th><th>Decision</th><th>Time to decide</th></tr></thead>
+      <tbody id="summary-body"></tbody>
+    </table>
+    <button class="btn btn-secondary" id="btn-restart-2">Restart prototype</button>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

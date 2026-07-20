@@ -1,0 +1,236 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f5f6f8;
+  --card-bg: #ffffff;
+  --text: #1b1f24;
+  --muted: #5b6472;
+  --border: #d7dbe0;
+  --primary: #1f5eff;
+  --primary-text: #ffffff;
+  --danger: #c0362c;
+  --danger-text: #ffffff;
+  --focus: #1f5eff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171c;
+    --card-bg: #1c2128;
+    --text: #e6e9ee;
+    --muted: #9aa4b2;
+    --border: #333a44;
+    --primary: #4d8dff;
+    --primary-text: #0b1220;
+    --danger: #ff6b5e;
+    --danger-text: #250a08;
+    --focus: #4d8dff;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.scenario-indicator {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+.alert-card, .query-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+.alert-severity {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--danger);
+  margin: 0 0 0.5rem;
+}
+
+.alert-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  margin: 1rem 0;
+}
+.alert-meta div { display: flex; flex-direction: column; }
+.alert-meta dt { font-size: 0.75rem; color: var(--muted); }
+.alert-meta dd { margin: 0; font-weight: 600; }
+
+.alert-hint, .section-hint {
+  color: var(--muted);
+}
+
+.change-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.change-list li {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+.change-time {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.query-box { margin-bottom: 1.5rem; }
+.query-row { display: flex; gap: 0.5rem; margin: 0.5rem 0; }
+.query-row input {
+  flex: 1;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--text);
+}
+.query-hint { font-size: 0.8rem; color: var(--muted); }
+
+.query-log {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.query-entry {
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.5rem;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+}
+.query-entry .q {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.query-entry .a { display: block; color: var(--muted); }
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+}
+legend { font-weight: 600; padding: 0 0.25rem; }
+
+/* Checklist choices render as native radios for keyboard/screen-reader
+   support, but visually styled as a simple button group per test feedback. */
+.choice-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.choice-group input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.choice-group label {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  cursor: pointer;
+}
+.choice-group label:has(input:checked) {
+  background: var(--primary);
+  color: var(--primary-text);
+  border-color: var(--primary);
+}
+.choice-group label:has(input:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.suggestion {
+  font-size: 1.05rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+.confidence {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.summary-table th, .summary-table td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.decision-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.confirm-time { color: var(--muted); }
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.btn-primary { background: var(--primary); color: var(--primary-text); margin-top: 1rem; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+/* All three decision-screen options use the same neutral style so none is
+   visually pre-selected as "the right answer" before the participant chooses. */
+.btn-choice { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-choice:hover { background: var(--bg); }
