@@ -121,8 +121,11 @@
     document.getElementById("query-input").value = "";
 
     document.getElementById("checklist-form").reset();
+    document.querySelectorAll(".choice-group label.is-selected").forEach(function (label) {
+      label.classList.remove("is-selected");
+    });
     document.getElementById("suggestion").textContent = "";
-    document.getElementById("confidence").textContent = "";
+    pendingConfidenceText = "";
 
     startTimer();
     showScreen("screen-alert");
@@ -131,6 +134,17 @@
   // --- Screen 1 -> 2 ---
   document.getElementById("btn-open-changes").addEventListener("click", function () {
     showScreen("screen-changes");
+  });
+
+  // --- Back navigation (revisit earlier screens without losing state) ---
+  document.getElementById("btn-back-to-alert").addEventListener("click", function () {
+    showScreen("screen-alert");
+  });
+  document.getElementById("btn-back-to-changes").addEventListener("click", function () {
+    showScreen("screen-changes");
+  });
+  document.getElementById("btn-back-to-checklist").addEventListener("click", function () {
+    showScreen("screen-checklist");
   });
 
   // --- Query box: running history, scoped to the current scenario ---
@@ -144,7 +158,7 @@
         }
       }
     }
-    return "No matching info for that question. Try asking about: recent changes, similar past incidents, or who to escalate to.";
+    return "I don't have information on that for this alert. That doesn't mean there's nothing to find — try asking about: recent changes, similar past incidents, or who to escalate to.";
   }
 
   function renderQueryLog() {
@@ -188,7 +202,21 @@
     showScreen("screen-checklist");
   });
 
-  // --- Checklist -> neutral signal summary + confidence indicator ---
+  // --- Checklist choice-group selected styling ---
+  // CSS :has() covers this in supporting browsers; this listener is a
+  // fallback so the selected state still shows visually without it.
+  document.querySelectorAll(".choice-group").forEach(function (group) {
+    group.addEventListener("change", function () {
+      group.querySelectorAll("label").forEach(function (label) {
+        var input = label.querySelector("input");
+        label.classList.toggle("is-selected", input.checked);
+      });
+    });
+  });
+
+  // --- Checklist -> neutral signal summary ---
+  var pendingConfidenceText = "";
+
   document.getElementById("checklist-form").addEventListener("submit", function (e) {
     e.preventDefault();
     var form = e.target;
@@ -200,29 +228,35 @@
     parts.push(
       q1 === "yes"
         ? "A recent change lines up closely with when the alert fired."
-        : "No recent change lines up closely with when the alert fired."
+        : q1 === "no"
+        ? "No recent change lines up closely with when the alert fired."
+        : "It's unclear whether any recent change lines up with when the alert fired."
     );
     parts.push(
       q2 === "yes"
         ? "This resembles an incident seen before."
-        : "This doesn't clearly resemble a past incident."
+        : q2 === "no"
+        ? "This doesn't clearly resemble a past incident."
+        : "It's unclear whether this resembles a past incident."
     );
     parts.push(
       q3 === "many"
         ? "Impact looks broad (many users)."
-        : "Impact looks limited (small subset of users)."
+        : q3 === "few"
+        ? "Impact looks limited (small subset of users)."
+        : "Scope of impact is unclear."
     );
     document.getElementById("suggestion").textContent = parts.join(" ");
 
-    // Neutral confidence indicator — reflects the answers without naming
-    // which action to take, so the decision buttons still require a
-    // participant's own judgment call.
+    // Signal strength is computed here but not shown yet — it only appears
+    // on the confirmation screen, after the participant has already chosen
+    // an action, so the decision buttons aren't preceded by a computed score.
     var score = 0;
-    if (q1 === "yes") score += 2;
-    if (q2 === "yes") score += 1;
-    if (q3 === "many") score += 1;
-    var level = score >= 3 ? "High" : score === 2 ? "Medium" : "Low";
-    document.getElementById("confidence").textContent = "Signal strength: " + level;
+    score += q1 === "yes" ? 2 : q1 === "uncertain" ? 1 : 0;
+    score += q2 === "yes" ? 1 : q2 === "uncertain" ? 0.5 : 0;
+    score += q3 === "many" ? 1 : q3 === "uncertain" ? 0.5 : 0;
+    var level = score >= 3 ? "High" : score >= 1.5 ? "Medium" : "Low";
+    pendingConfidenceText = "Signal strength (for reference): " + level;
 
     showScreen("screen-decision");
   });
@@ -240,6 +274,7 @@
       clearInterval(timerInterval);
       document.getElementById("confirm-text").textContent =
         decisionLabels[btn.dataset.action] || "Decision recorded.";
+      document.getElementById("confirm-confidence").textContent = pendingConfidenceText;
       document.getElementById("confirm-elapsed").textContent = formatElapsed(elapsedMs);
 
       results.push({
