@@ -108,3 +108,47 @@ When you're ready, describe your actual challenge along the 5 interview question
 ---
 
 Same underlying pattern each time: a single named person, a decision moment (not a whole app or system), and a journey short enough to map in 4–6 steps and prototype as one flow. Let me know if you'd like me to draft the discovery plan for the AI-PM-effort-triage challenge you named earlier, or if seeing these prompts you to switch to a different one.
+
+
+
+Full Plan
+#	Phase	Deliverable(s)	Who does what	Gate before proceeding
+1	Frame	Answers to the 5 interview questions → short discovery plan (in chat, no files yet)	You: name the challenge, evidence sources, scope. Me: check it's one actor/one goal/one journey, propose plan	You approve the plan
+2	Evidence	discovery.md (evidence section only)	Me: create empty structure. You: paste real observations/interviews/desk research, proxies clearly labelled	No sensitive data entered; sources visible
+3	Configure	.claude/skills/design-thinking/SKILL.md, .claude/agents/evidence-auditor.md, .claude/agents/prototype-reviewer.md	Me: draft from modules 01–04. You: review triggers, tool access, approval gates	You approve each file before it's used
+4	Synthesize	discovery.md completed: persona, journey map, POV, HMW	Me: derive from your evidence only. You: reject anything unsupported	You can trace every claim to evidence or a marked assumption
+5	Independent audit	evidence-auditor findings vs. discovery.md	Me: delegate to subagent. You: accept/edit/reject each finding	Findings reconciled
+6	Ideate & Select	decision-log.md (ideas, criteria, chosen direction, rejected options)	Me: generate materially different HMW responses + criteria. You: select or adjust criteria	One direction chosen with rationale
+7	Prototype	Static HTML/CSS/JS (or lighter format) implementing the approved concept	You: state one learning question. Me: propose lowest-fidelity format + files, then build after approval	You run it and confirm the journey works
+8	Review & Test	prototype-reviewer findings; test-notes.md	Me: subagent review (critique, not evidence). You: run a neutral task with real people/proxies, record raw observations	Observations logged before I interpret them
+9	Iterate	Approved changes to the prototype	Me: propose changes tied to specific observations. You: approve/edit/defer/reject	Only approved changes get implemented
+10	Audit	Final audit summary; ai-collaboration-log.md completed	Me: summarize files, evidence, assumptions, risks, next step. You: confirm recommendation	—
+—	Optional extensions (pick one at a time, after core cycle is tested once)	Skill/subagent improvement, second test cycle, cross-group review, alternative direction, accessibility pass, failure-journey, decision brief	Per handout's Optional Extensions section	Finish and verify one before starting the next
+Immediate next step
+To unblock Phase 1, tell me:
+
+The challenge — one person, one goal, one context (is it still "AI-PM-effort-triage," or something else?)
+Evidence access — real people you can interview, existing data, or will this need labelled proxies?
+Scope — confirm it's one actor/one goal/one journey
+Sensitive data — any, or fully anonymisable?
+Originality — anything to flag relative to other groups?
+Once you answer, I'll turn it into a short discovery plan for your approval — still no files created until then.
+
+can you please help me with some examples to complete this phase
+Here are three fully worked example answer sets — each showing what a complete response to all 5 interview questions looks like, not just the challenge statement. Use one as-is, adapt one, or let them prompt your own.
+
+Example A — AI-PM-effort-triage (building on your earlier direction)
+Challenge: A product manager trying to decide, within the first few minutes of triage, whether a newly-filed bug/feature request needs immediate attention or can wait for the next planning cycle — without enough context yet to judge its real impact.
+Evidence access: Real observation — your own or a colleague's actual backlog/ticket queue (anonymised), plus a couple of interviews with PMs about how they currently triage.
+Scope check: One actor (the triaging PM), one goal (decide urgency), one journey (ticket arrives → skim → judge impact/effort → assign priority or defer). Fits in one journey map.
+Sensitive data: Ticket titles/descriptions may reference customers or internal systems — anonymise names, customer identifiers, and system-specific details before entering notes.
+Originality: Likely distinct if other groups are picking consumer-facing app challenges rather than an internal PM workflow.
+Example B — Well-scoped alternative (consumer-facing)
+Challenge: A freelancer trying to decide whether to accept a new client's short-notice project request, given unclear scope and an already-full week.
+Evidence access: Interviews with freelancer friends/colleagues, freelancer forum posts (e.g., r/freelance), your own experience if applicable.
+Scope check: One actor (freelancer), one goal (accept/decline/negotiate), one journey (receive request → assess capacity → decide → respond).
+Sensitive data: None required — client details can stay hypothetical or fully anonymised.
+Originality: Check with other groups; this is a common "good" example from the course material, so it may overlap.
+Example C — Well-scoped alternative (internal/ops)
+Challenge: A new employee trying to figure out who to ask about a specific IT problem in their first week, without knowing the org chart yet.
+Evidence access: Interviews with recent hires, existing onboarding docs, Slack/Teams search logs if acc
